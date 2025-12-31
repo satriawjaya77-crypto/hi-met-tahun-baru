@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>New Year: Chapter 2025</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      height: 100vh;
+      background: radial-gradient(circle at top, #0f172a, #020617);
+      color: #e5e7eb;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .screen {
+      position: absolute;
+      width: 100%;
+      max-width: 420px;
+      padding: 32px;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
+    }
+
+    .screen.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    h1 {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.6rem;
+      margin-bottom: 24px;
+      letter-spacing: 0.05em;
+    }
+
+    p {
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 16px;
+      color: #cbd5f5;
+    }
+
+    .btn {
+      margin-top: 24px;
+      padding: 12px 24px;
+      border: 1px solid #64748b;
+      background: transparent;
+      color: #e5e7eb;
+      font-family: 'Space Mono', monospace;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #1e293b;
+      border-color: #94a3b8;
+    }
+
+    .paths {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .path {
+      border: 1px solid #475569;
+      padding: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .path:hover {
+      background: rgba(255,255,255,0.05);
+      transform: translateY(-2px);
+    }
+
+    .path h2 {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .path span {
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+
+    .credits {
+      font-size: 0.85rem;
+      color: #64748b;
+      margin-top: 40px;
+    }
+
+    .fade {
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- START SCREEN -->
+  <div class="screen active" id="screen-start">
+    <h1>New Year: Chapter 2025</h1>
+    <button class="btn" onclick="goTo('screen-context')">START</button>
+  </div>
+
+  <!-- CONTEXT -->
+  <div class="screen" id="screen-context">
+    <p>This year wasn’t easy.</p>
+    <p>You don’t need to explain it.<br>You don’t need to be strong here.</p>
+    <p>Just choose one path.<br>There’s no wrong answer.</p>
+    <button class="btn" onclick="goTo('screen-paths')">CONTINUE</button>
+  </div>
+
+  <!-- PATH SELECTION -->
+  <div class="screen" id="screen-paths">
+    <h1>Choose Your Path</h1>
+    <div class="paths">
+      <div class="path" onclick="goTo('screen-healing')">
+        <h2>🌱 Healing</h2>
+        <span>I need time. I need space. I need kindness.</span>
+      </div>
+      <div class="path" onclick="goTo('screen-bravery')">
+        <h2>🔥 Bravery</h2>
+        <span>I’m scared, but I don’t want to stop living.</span>
+      </div>
+      <div class="path" onclick="goTo('screen-peace')">
+        <h2>🌊 Peace</h2>
+        <span>I just want things to feel quieter.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HEALING -->
+  <div class="screen" id="screen-healing">
+    <p>It’s okay if you’re not okay yet.</p>
+    <p>Healing doesn’t mean forgetting.<br>It means letting yourself breathe again.</p>
+    <p>I hope this year gives you gentler days.<br>And when it feels heavy, I hope you don’t face it alone.</p>
+    <p>You don’t owe the world your strength.</p>
+    <button class="btn" onclick="goTo('screen-end')">CONTINUE</button>
+  </div>
+
+  <!-- BRAVERY -->
+  <div class="screen" id="screen-bravery">
+    <p>Choosing to move forward after being hurt is brave.</p>
+    <p>Even showing up is brave.</p>
+    <p>I hope 2025 meets you with moments that remind you<br>you are more than what broke you.</p>
+    <p>You’re allowed to want more. Even now.</p>
+    <button class="btn" onclick="goTo('screen-end')">CONTINUE</button>
+  </div>
+
+  <!-- PEACE -->
+  <div class="screen" id="screen-peace">
+    <p>Wanting peace is not giving up.</p>
+    <p>It’s choosing yourself.</p>
+    <p>I hope this year feels softer.<br>Less noise. Less weight. More room to breathe.</p>
+    <p>You deserve that kind of quiet.</p>
+    <button class="btn" onclick="goTo('screen-end')">CONTINUE</button>
+  </div>
+
+  <!-- END -->
+  <div class="screen" id="screen-end">
+    <h1>End of Chapter One</h1>
+    <p>Next chapter unlocks naturally.<br>No rush.</p>
+    <div class="credits">From someone who cares about you.</div>
+  </div>
+
+  <script>
+    function goTo(id) {
+      const screens = document.querySelectorAll('.screen');
+      screens.forEach(screen => {
+        screen.classList.remove('active');
+      });
+
+      const next = document.getElementById(id);
+      next.classList.add('active');
+      next.classList.add('fade');
+    }
+  </script>
+
+</body>
+</html>
