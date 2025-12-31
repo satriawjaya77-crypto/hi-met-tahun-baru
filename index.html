@@ -18,28 +18,27 @@
 
     body {
       min-height: 100vh;
-      background: #0b1020;
-      color: #e0e7ff;
+      background: linear-gradient(#60a5fa, #1e3a8a);
       font-family: 'Press Start 2P', monospace;
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
+      color: #fefce8;
     }
 
     .game {
       width: 100%;
-      max-width: 420px;
+      max-width: 440px;
       padding: 24px;
+      background: #1e293b;
+      border: 6px solid #facc15;
+      box-shadow: 0 0 0 6px #1e293b, 0 0 0 12px #fde047;
       text-align: center;
-      border: 4px solid #94a3b8;
-      background: #020617;
-      box-shadow: 0 0 0 4px #020617, 0 0 0 8px #475569;
     }
 
     .screen {
       display: none;
-      animation: fadeIn 0.6s steps(6) forwards;
+      animation: fadeIn 0.5s steps(6) forwards;
     }
 
     .screen.active {
@@ -47,31 +46,31 @@
     }
 
     h1 {
-      font-size: 0.9rem;
-      line-height: 1.6;
+      font-size: 0.8rem;
+      line-height: 1.7;
       margin-bottom: 24px;
+      color: #fde68a;
     }
 
     p {
       font-size: 0.6rem;
-      line-height: 1.9;
-      margin-bottom: 16px;
-      color: #c7d2fe;
+      line-height: 2;
+      margin-bottom: 14px;
+      color: #fef3c7;
     }
 
     .btn {
-      margin-top: 24px;
+      margin-top: 20px;
       padding: 10px 16px;
-      border: 3px solid #94a3b8;
-      background: #020617;
-      color: #e0e7ff;
-      font-family: inherit;
+      border: 4px solid #facc15;
+      background: #f59e0b;
+      color: #1e293b;
       font-size: 0.6rem;
       cursor: pointer;
     }
 
     .btn:hover {
-      background: #1e293b;
+      background: #fde047;
     }
 
     .paths {
@@ -82,30 +81,31 @@
     }
 
     .path {
-      border: 3px solid #64748b;
+      border: 4px solid #facc15;
       padding: 14px;
+      background: #0f172a;
       cursor: pointer;
-      background: #020617;
     }
 
     .path:hover {
-      background: #1e293b;
+      background: #1e3a8a;
     }
 
     .path h2 {
-      font-size: 0.7rem;
-      margin-bottom: 8px;
+      font-size: 0.65rem;
+      margin-bottom: 6px;
+      color: #fde047;
     }
 
     .path span {
       font-size: 0.55rem;
-      color: #a5b4fc;
+      color: #e0f2fe;
     }
 
     .credits {
       font-size: 0.5rem;
-      color: #94a3b8;
-      margin-top: 32px;
+      color: #fde68a;
+      margin-top: 28px;
     }
 
     .music-toggle {
@@ -113,83 +113,85 @@
       top: 16px;
       right: 16px;
       font-size: 0.5rem;
-      border: 2px solid #94a3b8;
+      background: #facc15;
+      color: #1e293b;
+      border: 3px solid #92400e;
       padding: 6px 8px;
       cursor: pointer;
-      background: #020617;
+    }
+
+    .icon {
+      font-size: 1rem;
+      margin-bottom: 12px;
+      display: block;
     }
 
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(8px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Background Music -->
+  <!-- Music -->
   <audio id="bgm" loop>
     <source src="music.mp3" type="audio/mpeg">
   </audio>
 
-  <div class="music-toggle" onclick="toggleMusic()">
-    MUSIC: OFF
-  </div>
+  <div class="music-toggle" onclick="toggleMusic()">🎵 MUSIC: OFF</div>
 
   <div class="game">
 
     <!-- START -->
     <div class="screen active" id="screen-start">
+      <span class="icon">⭐</span>
       <h1>
-        Happ New Year Ketua<br>
-        Special Notes to Reflect New Chapter
+        Happy New Year, Ketua!<br>
+        Special Notes to Reflect a New Chapter
       </h1>
-      <button class="btn" onclick="goTo('screen-context')">PRESS START</button>
+      <button class="btn" onclick="goTo('screen-context')">▶ START</button>
     </div>
 
     <!-- CONTEXT -->
     <div class="screen" id="screen-context">
+      <span class="icon">💬</span>
       <p>Gimana rasanya tidur 1 tahun?</p>
       <p>Ahahahah, kayanya udah bangun ya.</p>
 
       <p>
-        Well, here is the new year.<br>
+        Well, here we are. A new year.<br>
         As what you said,<br>
-        new year new me (siapp ketua).
+        new year, new me (siap, ketua).
       </p>
 
       <p>
-        As this year might not be easy for you,<br>
-        and almost for everyone.
+        This year might not be easy for you,<br>
+        and honestly, for almost everyone.
       </p>
 
       <p>
-        Just want to tell,<br>
-        that you don't need to explain it.
+        Just want to say,<br>
+        you don’t need to explain anything here.
       </p>
 
       <p>
-        And on this space,<br>
-        you dont need to be strong.
+        And in this space,<br>
+        you don’t need to be strong.
       </p>
 
       <p>
         Just choose one path.<br>
-        There's no wrong answer.
+        There’s no wrong answer.
       </p>
 
-      <button class="btn" onclick="goTo('screen-paths')">CONTINUE</button>
+      <button class="btn" onclick="goTo('screen-paths')">➡ CONTINUE</button>
     </div>
 
     <!-- PATHS -->
     <div class="screen" id="screen-paths">
+      <span class="icon">🧭</span>
       <h1>Choose Your Path</h1>
       <div class="paths">
         <div class="path" onclick="goTo('screen-healing')">
@@ -209,34 +211,36 @@
 
     <!-- HEALING -->
     <div class="screen" id="screen-healing">
+      <span class="icon">❤️</span>
       <p>It’s okay if you’re not okay yet.</p>
       <p>Healing doesn’t mean forgetting.</p>
       <p>It means letting yourself breathe again.</p>
-      <p>I hope this year gives you gentler days.</p>
       <p>You don’t owe the world your strength.</p>
-      <button class="btn" onclick="goTo('screen-end')">CONTINUE</button>
+      <button class="btn" onclick="goTo('screen-end')">➡ CONTINUE</button>
     </div>
 
     <!-- BRAVERY -->
     <div class="screen" id="screen-bravery">
+      <span class="icon">🔥</span>
       <p>Choosing to move forward after being hurt is brave.</p>
       <p>Even showing up is brave.</p>
-      <p>You are more than what broke you.</p>
       <p>You’re allowed to want more. Even now.</p>
-      <button class="btn" onclick="goTo('screen-end')">CONTINUE</button>
+      <button class="btn" onclick="goTo('screen-end')">➡ CONTINUE</button>
     </div>
 
     <!-- PEACE -->
     <div class="screen" id="screen-peace">
+      <span class="icon">🏳️</span>
       <p>Wanting peace is not giving up.</p>
       <p>It’s choosing yourself.</p>
       <p>Less noise. Less weight.</p>
       <p>More room to breathe.</p>
-      <button class="btn" onclick="goTo('screen-end')">CONTINUE</button>
+      <button class="btn" onclick="goTo('screen-end')">➡ CONTINUE</button>
     </div>
 
     <!-- END -->
     <div class="screen" id="screen-end">
+      <span class="icon">🏁</span>
       <h1>End of Chapter One</h1>
       <p>Next chapter unlocks naturally.</p>
       <p>No rush.</p>
@@ -259,10 +263,10 @@
     function toggleMusic() {
       if (!playing) {
         music.play();
-        toggle.innerText = 'MUSIC: ON';
+        toggle.innerText = '🎵 MUSIC: ON';
       } else {
         music.pause();
-        toggle.innerText = 'MUSIC: OFF';
+        toggle.innerText = '🎵 MUSIC: OFF';
       }
       playing = !playing;
     }
