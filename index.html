@@ -1,352 +1,376 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>New Year – A New Chapter</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Year – A New Chapter</title>
 
-  <!-- Pixel Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      image-rendering: pixelated;
-    }
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  image-rendering: pixelated;
+}
 
-    body {
-      min-height: 100vh;
-      background: linear-gradient(#60a5fa, #1e3a8a);
-      font-family: 'Press Start 2P', monospace;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #fefce8;
-    }
+body {
+  font-family: 'Press Start 2P', monospace;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fefce8;
+}
 
-    .game {
-      width: 100%;
-      max-width: 440px;
-      padding: 24px;
-      background: #1e293b;
-      border: 6px solid #facc15;
-      box-shadow: 0 0 0 6px #1e293b, 0 0 0 12px #fde047;
-      text-align: center;
-    }
+/* ===== BACKGROUND ===== */
+.bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background-repeat: repeat-x;
+  background-size: contain;
+  z-index: -3;
+  animation: scrollBg 50s linear infinite;
+}
 
-    .screen {
-      display: none;
-      animation: fadeIn 0.5s steps(6) forwards;
-    }
+#bg-day { background-image: url("images/bg-day.png"); }
+#bg-sunset { background-image: url("images/bg-sunset.png"); display:none; }
+#bg-night { background-image: url("images/bg-night.png"); display:none; }
 
-    .screen.active {
-      display: block;
-    }
+.bg-ground {
+  position: fixed;
+  bottom: 0;
+  width: 200%;
+  height: 35%;
+  background: url("images/bg-ground.png") repeat-x;
+  background-size: contain;
+  animation: scrollBg 15s linear infinite;
+  z-index: -2;
+}
 
-    h1 {
-      font-size: 0.8rem;
-      line-height: 1.7;
-      margin-bottom: 20px;
-      color: #fde68a;
-    }
+@keyframes scrollBg {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
 
-    p {
-      font-size: 0.6rem;
-      line-height: 2;
-      margin-bottom: 12px;
-      color: #fef3c7;
-    }
+/* ===== CLOUDS ===== */
+.cloud {
+  position: fixed;
+  top: 10%;
+  width: 60px;
+  opacity: 0.9;
+  animation: cloudMove linear forwards;
+  z-index: -1;
+}
 
-    ul {
-      list-style: none;
-      margin-top: 16px;
-    }
+@keyframes cloudMove {
+  from { transform: translateX(110vw); }
+  to { transform: translateX(-20vw); }
+}
 
-    li {
-      font-size: 0.6rem;
-      margin-bottom: 10px;
-      color: #e0f2fe;
-    }
+/* ===== STARS (CLOSING) ===== */
+.star {
+  position: fixed;
+  width: 20px;
+  animation: twinkle 2s infinite alternate;
+  z-index: -1;
+}
 
-    .btn {
-      margin-top: 20px;
-      padding: 10px 16px;
-      border: 4px solid #facc15;
-      background: #f59e0b;
-      color: #1e293b;
-      font-size: 0.6rem;
-      cursor: pointer;
-    }
+@keyframes twinkle {
+  from { opacity: 0.4; }
+  to { opacity: 1; }
+}
 
-    .btn:hover {
-      background: #fde047;
-    }
+/* ===== MARIO ===== */
+.mario {
+  position: fixed;
+  bottom: 5%;
+  left: -50px;
+  width: 40px;
+  animation: marioWalk 25s linear infinite;
+  z-index: 0;
+}
 
-    .paths {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      margin-top: 20px;
-    }
+@keyframes marioWalk {
+  from { left: -50px; }
+  to { left: 110vw; }
+}
 
-    .path {
-      border: 4px solid #facc15;
-      padding: 14px;
-      background: #0f172a;
-      cursor: pointer;
-    }
+/* ===== GAME CARD ===== */
+.game {
+  width: 100%;
+  max-width: 440px;
+  padding: 24px;
+  background: rgba(30,41,59,0.9);
+  border: 6px solid #facc15;
+  box-shadow: 0 0 0 6px #1e293b, 0 0 0 12px #fde047;
+  text-align: center;
+}
 
-    .path:hover {
-      background: #1e3a8a;
-    }
+.screen {
+  display: none;
+}
 
-    .path h2 {
-      font-size: 0.65rem;
-      margin-bottom: 6px;
-      color: #fde047;
-    }
+.screen.active {
+  display: block;
+  animation: fadeIn 0.6s steps(6);
+}
 
-    .path span {
-      font-size: 0.55rem;
-      color: #e0f2fe;
-    }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
-    .credits {
-      font-size: 0.5rem;
-      color: #fde68a;
-      margin-top: 24px;
-    }
+h1 {
+  font-size: 0.8rem;
+  margin-bottom: 20px;
+  color: #fde68a;
+}
 
-    .music-toggle {
-      position: fixed;
-      top: 16px;
-      right: 16px;
-      font-size: 0.5rem;
-      background: #facc15;
-      color: #1e293b;
-      border: 3px solid #92400e;
-      padding: 6px 8px;
-      cursor: pointer;
-    }
+p {
+  font-size: 0.6rem;
+  line-height: 2;
+  margin-bottom: 12px;
+}
 
-    .icon {
-      font-size: 1rem;
-      margin-bottom: 10px;
-      display: block;
-    }
+ul {
+  list-style: none;
+  margin-top: 12px;
+}
 
-    .blink {
-      margin-top: 18px;
-      font-size: 0.5rem;
-      opacity: 0.8;
-      animation: blink 1s steps(2) infinite;
-    }
+li {
+  font-size: 0.6rem;
+  margin-bottom: 8px;
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+.btn {
+  margin-top: 20px;
+  padding: 10px 16px;
+  border: 4px solid #facc15;
+  background: #f59e0b;
+  font-size: 0.6rem;
+  cursor: pointer;
+}
 
-    @keyframes blink {
-      50% { opacity: 0; }
-    }
-  </style>
+.btn:hover {
+  background: #fde047;
+}
+
+.icon {
+  font-size: 1rem;
+  margin-bottom: 12px;
+}
+
+.blink {
+  font-size: 0.5rem;
+  opacity: 0.8;
+  animation: blink 1s steps(2) infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* MUSIC */
+.music-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  font-size: 0.5rem;
+  background: #facc15;
+  color: #1e293b;
+  border: 3px solid #92400e;
+  padding: 6px 8px;
+  cursor: pointer;
+}
+</style>
 </head>
 
 <body>
 
-  <!-- MUSIC -->
-  <audio id="bgm" loop>
-    <source src="music.mp3" type="audio/mpeg">
-  </audio>
+<!-- BACKGROUNDS -->
+<div class="bg" id="bg-day"></div>
+<div class="bg" id="bg-sunset"></div>
+<div class="bg" id="bg-night"></div>
+<div class="bg-ground"></div>
 
-  <div class="music-toggle" onclick="toggleMusic()">🎵 MUSIC: OFF</div>
+<!-- MARIO -->
+<img src="images/mario-walk.gif" class="mario">
 
-  <div class="game">
+<!-- MUSIC -->
+<audio id="bgm" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+<div class="music-toggle" onclick="toggleMusic()">🎵 MUSIC: OFF</div>
 
-    <!-- START -->
-    <div class="screen active" id="screen-start">
-      <span class="icon">⭐</span>
-      <h1>
-        Happy New Year, Ketua!<br>
-        Special Notes to Reflect a New Chapter
-      </h1>
-      <button class="btn" onclick="goTo('screen-context')">▶ START</button>
-    </div>
+<div class="game">
 
-    <!-- CONTEXT -->
-    <div class="screen" id="screen-context">
-      <span class="icon">💬</span>
-      <p>Gimana rasanya tidur 1 tahun?</p>
-      <p>Ahahahah, kayanya udah bangun ya.</p>
+<!-- START -->
+<div class="screen active" id="start">
+  <span class="icon">⭐</span>
+  <h1>
+    Happy New Year, Ketua!<br>
+    Special Notes to Reflect a New Chapter
+  </h1>
+  <button class="btn" onclick="goTo('context')">▶ START</button>
+</div>
 
-      <p>
-        Well, here we are. A new year.<br>
-        As what you said,<br>
-        new year, new me (siap, ketua).
-      </p>
+<!-- CONTEXT -->
+<div class="screen" id="context">
+  <p>Gimana rasanya tidur 1 tahun?</p>
+  <p>Ahahahah, kayanya udah bangun ya.</p>
 
-      <p>
-        This year might not be easy for you,<br>
-        and honestly, for almost everyone.
-      </p>
+  <p>
+    Well, here is the new year.<br>
+    As what you said,<br>
+    new year, new me (siap ketua).
+  </p>
 
-      <p>
-        You don’t need to explain anything here.
-      </p>
+  <p>
+    This year might not be easy for you,<br>
+    and honestly, for almost everyone.
+  </p>
 
-      <p>
-        And in this space,<br>
-        you don’t need to be strong.
-      </p>
+  <p>
+    You don’t need to explain anything here.<br>
+    And in this space, you don’t need to be strong.
+  </p>
 
-      <p>
-        Just choose one path.<br>
-        There’s no wrong answer.
-      </p>
+  <p>
+    Just choose one path.<br>
+    There’s no wrong answer.
+  </p>
 
-      <button class="btn" onclick="goTo('screen-paths')">➡ CONTINUE</button>
-    </div>
+  <button class="btn" onclick="goTo('paths')">➡ CONTINUE</button>
+</div>
 
-    <!-- PATHS -->
-    <div class="screen" id="screen-paths">
-      <span class="icon">🧭</span>
-      <h1>Choose Your Path</h1>
+<!-- PATHS -->
+<div class="screen" id="paths">
+  <span class="icon">🧭</span>
+  <h1>Choose Your Path</h1>
 
-      <div class="paths">
-        <div class="path" onclick="goTo('screen-healing')">
-          <h2>🌱 Healing</h2>
-          <span>I need time. I need space. I need kindness.</span>
-        </div>
+  <button class="btn" onclick="setPath('healing')">🌱 Healing</button>
+  <button class="btn" onclick="setPath('bravery')">🔥 Bravery</button>
+  <button class="btn" onclick="setPath('peace')">🌊 Peace</button>
+</div>
 
-        <div class="path" onclick="goTo('screen-bravery')">
-          <h2>🔥 Bravery</h2>
-          <span>I’m scared, but I don’t want to stop living.</span>
-        </div>
+<!-- NETFLIX -->
+<div class="screen" id="netflix">
+  <span class="icon">📺</span>
+  <h1>Side Quest Unlocked!</h1>
 
-        <div class="path" onclick="goTo('screen-peace')">
-          <h2>🌊 Peace</h2>
-          <span>I just want things to feel quieter.</span>
-        </div>
-      </div>
-    </div>
+  <p>Bang, bingung bang liburan ngapain aja?</p>
+  <p>
+    Netflix recommendations<br>
+    (FROM YOUR RECOMMENDATION GURU)<br>
+    #IZINNNN
+  </p>
 
-    <!-- HEALING -->
-    <div class="screen" id="screen-healing">
-      <span class="icon">🍄</span>
-      <p>It’s okay if you’re not okay yet.</p>
-      <p>Healing doesn’t mean forgetting.</p>
-      <p>It means letting yourself breathe again.</p>
-      <button class="btn" onclick="goTo('screen-netflix')">➡ SIDE QUEST</button>
-    </div>
+  <ul>
+    <li>⭐ DARK</li>
+    <li>⭐ The Society</li>
+    <li>⭐ The Night Agent</li>
+    <li>⭐ Spy x Family</li>
+    <li>⭐ Bon Appétit, Your Majesty</li>
+    <li>⭐ Weak Hero</li>
+  </ul>
 
-    <!-- BRAVERY -->
-    <div class="screen" id="screen-bravery">
-      <span class="icon">🔥</span>
-      <p>Choosing to move forward after being hurt is brave.</p>
-      <p>Even showing up is brave.</p>
-      <p>You’re allowed to want more.</p>
-      <button class="btn" onclick="goTo('screen-netflix')">➡ SIDE QUEST</button>
-    </div>
+  <button class="btn" onclick="goTo('end')">🏁 FINISH</button>
+</div>
 
-    <!-- PEACE -->
-    <div class="screen" id="screen-peace">
-      <span class="icon">🌊</span>
-      <p>Wanting peace is not giving up.</p>
-      <p>It’s choosing yourself.</p>
-      <p>More room to breathe.</p>
-      <button class="btn" onclick="goTo('screen-netflix')">➡ SIDE QUEST</button>
-    </div>
+<!-- END -->
+<div class="screen" id="end">
+  <span class="icon">⭐ 🏁</span>
 
-    <!-- NETFLIX SIDE QUEST -->
-    <div class="screen" id="screen-netflix">
-      <span class="icon">📺</span>
-      <h1>Side Quest Unlocked!</h1>
+  <p>Lastly, if you ever need to hear this.</p>
 
-      <p>Bang, bingung bang liburan ngapain aja?</p>
-      <p>
-        Here are some Netflix recommendations<br>
-        (FROM YOUR RECOMMENDATION GURU)<br>
-        #IZINNNN
-      </p>
+  <p>
+    Gapapa kok,<br>
+    kalau satu-satunya hal yang kamu lakuin tahun ini<br>
+    adalah bertahan.
+  </p>
 
-      <ul>
-        <li>⭐ DARK</li>
-        <li>⭐ The Society</li>
-        <li>⭐ The Night Agent</li>
-        <li>⭐ Spy x Family (pliss ini lucu dan bagus)</li>
-        <li>⭐ Bon Appétit, Your Majesty</li>
-        <li>⭐ Weak Hero</li>
-      </ul>
+  <p>
+    Terlalu banyak tangis yang disembunyikan.<br>
+    Terlalu banyak masalah yang orang lain nggak lihat.
+  </p>
 
-      <button class="btn" onclick="goTo('screen-end')">🏁 FINISH</button>
-    </div>
+  <p>
+    Although I just barely know you personally,<br>
+    please know this.
+  </p>
 
-    <!-- FINAL CLOSING -->
-    <div class="screen" id="screen-end">
-      <span class="icon">⭐ 🏁</span>
+  <p>I see you.</p>
 
-      <h1>Final Message</h1>
+  <p>
+    And I am proud of you<br>
+    for surviving this far.
+  </p>
 
-      <p>Lastly, if you ever need to hear this.</p>
-
-      <p>
-        Gapapa kok,<br>
-        kalau satu-satunya hal yang kamu lakuin tahun ini<br>
-        adalah bertahan.
-      </p>
-
-      <p>
-        Terlalu banyak tangis yang disembunyikan.<br>
-        Terlalu banyak hal berat<br>
-        yang orang lain nggak lihat.
-      </p>
-
-      <p>
-        Even though I barely know you personally,<br>
-        please know this.
-      </p>
-
-      <p>I see you.</p>
-
-      <p>
-        And I’m proud of you<br>
-        for surviving this far.
-      </p>
-
-      <div class="credits">
-        ⏳ Countdown to D-31 to your 20s
-      </div>
-
-      <p class="blink">Press any key to continue…</p>
-    </div>
-
+  <div class="blink">
+    ⏳ Countdown to D-31 to your 20s
   </div>
+</div>
 
-  <script>
-    function goTo(id) {
-      document.querySelectorAll('.screen')
-        .forEach(screen => screen.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-    }
+</div>
 
-    const music = document.getElementById('bgm');
-    const toggle = document.querySelector('.music-toggle');
-    let playing = false;
+<script>
+function goTo(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
 
-    function toggleMusic() {
-      if (!playing) {
-        music.play();
-        toggle.innerText = '🎵 MUSIC: ON';
-      } else {
-        music.pause();
-        toggle.innerText = '🎵 MUSIC: OFF';
-      }
-      playing = !playing;
-    }
-  </script>
+function setPath(path) {
+  document.getElementById('bg-day').style.display = 'none';
+  document.getElementById('bg-sunset').style.display = 'none';
+  document.getElementById('bg-night').style.display = 'none';
+
+  if (path === 'healing') document.getElementById('bg-day').style.display = 'block';
+  if (path === 'bravery') document.getElementById('bg-sunset').style.display = 'block';
+  if (path === 'peace') document.getElementById('bg-night').style.display = 'block';
+
+  goTo('netflix');
+}
+
+/* MUSIC */
+const music = document.getElementById('bgm');
+const toggle = document.querySelector('.music-toggle');
+let playing = false;
+
+function toggleMusic() {
+  playing ? music.pause() : music.play();
+  toggle.innerText = playing ? '🎵 MUSIC: OFF' : '🎵 MUSIC: ON';
+  playing = !playing;
+}
+
+/* CLOUDS */
+function spawnCloud() {
+  const c = document.createElement('img');
+  c.src = 'images/cloud.png';
+  c.className = 'cloud';
+  c.style.top = Math.random() * 40 + '%';
+  c.style.animationDuration = (20 + Math.random() * 20) + 's';
+  document.body.appendChild(c);
+  setTimeout(() => c.remove(), 40000);
+}
+setInterval(spawnCloud, 6000);
+
+/* STARS FOR CLOSING */
+function spawnStar() {
+  const s = document.createElement('img');
+  s.src = 'images/star.png';
+  s.className = 'star';
+  s.style.left = Math.random() * 100 + 'vw';
+  s.style.top = Math.random() * 50 + 'vh';
+  document.body.appendChild(s);
+}
+for (let i = 0; i < 12; i++) spawnStar();
+</script>
 
 </body>
 </html>
