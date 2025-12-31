@@ -25,7 +25,7 @@ body {
   color: #fefce8;
 }
 
-/* ===== BACKGROUND ===== */
+/* BACKGROUND */
 .bg {
   position: fixed;
   top: 0;
@@ -58,42 +58,13 @@ body {
   to { transform: translateX(-50%); }
 }
 
-/* ===== CLOUDS ===== */
-.cloud {
-  position: fixed;
-  top: 10%;
-  width: 60px;
-  opacity: 0.9;
-  animation: cloudMove linear forwards;
-  z-index: -1;
-}
-
-@keyframes cloudMove {
-  from { transform: translateX(110vw); }
-  to { transform: translateX(-20vw); }
-}
-
-/* ===== STARS (CLOSING) ===== */
-.star {
-  position: fixed;
-  width: 20px;
-  animation: twinkle 2s infinite alternate;
-  z-index: -1;
-}
-
-@keyframes twinkle {
-  from { opacity: 0.4; }
-  to { opacity: 1; }
-}
-
-/* ===== MARIO ===== */
+/* MARIO */
 .mario {
   position: fixed;
   bottom: 5%;
   left: -50px;
   width: 40px;
   animation: marioWalk 25s linear infinite;
-  z-index: 0;
 }
 
 @keyframes marioWalk {
@@ -101,12 +72,12 @@ body {
   to { left: 110vw; }
 }
 
-/* ===== GAME CARD ===== */
+/* GAME CARD */
 .game {
   width: 100%;
-  max-width: 440px;
-  padding: 24px;
-  background: rgba(30,41,59,0.9);
+  max-width: 460px;
+  padding: 28px;
+  background: rgba(30,41,59,0.92);
   border: 6px solid #facc15;
   box-shadow: 0 0 0 6px #1e293b, 0 0 0 12px #fde047;
   text-align: center;
@@ -128,29 +99,27 @@ body {
 
 h1 {
   font-size: 0.8rem;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
   color: #fde68a;
+  line-height: 1.6;
 }
 
 p {
   font-size: 0.6rem;
-  line-height: 2;
-  margin-bottom: 12px;
+  line-height: 2.1;
+  margin-bottom: 16px;
 }
 
-ul {
-  list-style: none;
-  margin-top: 12px;
-}
-
-li {
-  font-size: 0.6rem;
-  margin-bottom: 8px;
+.path-desc {
+  font-size: 0.55rem;
+  opacity: 0.85;
+  margin-top: 6px;
 }
 
 .btn {
-  margin-top: 20px;
-  padding: 10px 16px;
+  font-family: 'Press Start 2P', monospace;
+  margin-top: 18px;
+  padding: 12px 18px;
   border: 4px solid #facc15;
   background: #f59e0b;
   font-size: 0.6rem;
@@ -162,18 +131,8 @@ li {
 }
 
 .icon {
-  font-size: 1rem;
-  margin-bottom: 12px;
-}
-
-.blink {
-  font-size: 0.5rem;
-  opacity: 0.8;
-  animation: blink 1s steps(2) infinite;
-}
-
-@keyframes blink {
-  50% { opacity: 0; }
+  font-size: 1.2rem;
+  margin-bottom: 14px;
 }
 
 /* MUSIC */
@@ -181,6 +140,7 @@ li {
   position: fixed;
   top: 16px;
   right: 16px;
+  font-family: 'Press Start 2P', monospace;
   font-size: 0.5rem;
   background: #facc15;
   color: #1e293b;
@@ -193,20 +153,17 @@ li {
 
 <body>
 
-<!-- BACKGROUNDS -->
 <div class="bg" id="bg-day"></div>
 <div class="bg" id="bg-sunset"></div>
 <div class="bg" id="bg-night"></div>
 <div class="bg-ground"></div>
 
-<!-- MARIO -->
 <img src="images/mario-walk.gif" class="mario">
 
-<!-- MUSIC -->
 <audio id="bgm" loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
-<div class="music-toggle" onclick="toggleMusic()">🎵 MUSIC: OFF</div>
+<div class="music-toggle" onclick="toggleMusic()">🎵 MUSIC</div>
 
 <div class="game">
 
@@ -214,8 +171,8 @@ li {
 <div class="screen active" id="start">
   <span class="icon">⭐</span>
   <h1>
-    Happy New Year, Ketua!<br>
-    Special Notes to Reflect a New Chapter
+    Happy New Year, Ketua<br>
+    A Special Note for a New Chapter
   </h1>
   <button class="btn" onclick="goTo('context')">▶ START</button>
 </div>
@@ -254,38 +211,52 @@ li {
   <span class="icon">🧭</span>
   <h1>Choose Your Path</h1>
 
-  <button class="btn" onclick="setPath('healing')">🌱 Healing</button>
-  <button class="btn" onclick="setPath('bravery')">🔥 Bravery</button>
-  <button class="btn" onclick="setPath('peace')">🌊 Peace</button>
+  <button class="btn" onclick="choosePath('healing')">
+    🌱 Healing
+    <div class="path-desc">I need time. I need space. I need kindness.</div>
+  </button>
+
+  <button class="btn" onclick="choosePath('bravery')">
+    🔥 Bravery
+    <div class="path-desc">I’m scared, but I’ll move anyway.</div>
+  </button>
+
+  <button class="btn" onclick="choosePath('peace')">
+    🌊 Peace
+    <div class="path-desc">I choose calm, even when things are loud.</div>
+  </button>
+</div>
+
+<!-- PATH DETAIL -->
+<div class="screen" id="path-detail">
+  <span class="icon" id="path-icon"></span>
+  <p id="path-text"></p>
+  <button class="btn" onclick="goTo('netflix')">➡ CONTINUE</button>
 </div>
 
 <!-- NETFLIX -->
 <div class="screen" id="netflix">
   <span class="icon">📺</span>
-  <h1>Side Quest Unlocked!</h1>
+  <h1>Side Quest Unlocked</h1>
 
   <p>Bang, bingung bang liburan ngapain aja?</p>
-  <p>
-    Netflix recommendations<br>
-    (FROM YOUR RECOMMENDATION GURU)<br>
-    #IZINNNN
-  </p>
+  <p>Netflix recommendations (izin ya).</p>
 
-  <ul>
-    <li>⭐ DARK</li>
-    <li>⭐ The Society</li>
-    <li>⭐ The Night Agent</li>
-    <li>⭐ Spy x Family</li>
-    <li>⭐ Bon Appétit, Your Majesty</li>
-    <li>⭐ Weak Hero</li>
-  </ul>
+  <p>
+    DARK<br>
+    The Society<br>
+    The Night Agent<br>
+    Spy x Family<br>
+    Bon Appétit, Your Majesty<br>
+    Weak Hero
+  </p>
 
   <button class="btn" onclick="goTo('end')">🏁 FINISH</button>
 </div>
 
 <!-- END -->
 <div class="screen" id="end">
-  <span class="icon">⭐ 🏁</span>
+  <span class="icon">⭐</span>
 
   <p>Lastly, if you ever need to hear this.</p>
 
@@ -306,15 +277,9 @@ li {
   </p>
 
   <p>I see you.</p>
+  <p>I am proud of you for surviving this far.</p>
 
-  <p>
-    And I am proud of you<br>
-    for surviving this far.
-  </p>
-
-  <div class="blink">
-    ⏳ Countdown to D-31 to your 20s
-  </div>
+  <p>⏳ Countdown to D-31 to your 20s</p>
 </div>
 
 </div>
@@ -325,51 +290,42 @@ function goTo(id) {
   document.getElementById(id).classList.add('active');
 }
 
-function setPath(path) {
+function choosePath(path) {
+  const icon = document.getElementById('path-icon');
+  const text = document.getElementById('path-text');
+
   document.getElementById('bg-day').style.display = 'none';
   document.getElementById('bg-sunset').style.display = 'none';
   document.getElementById('bg-night').style.display = 'none';
 
-  if (path === 'healing') document.getElementById('bg-day').style.display = 'block';
-  if (path === 'bravery') document.getElementById('bg-sunset').style.display = 'block';
-  if (path === 'peace') document.getElementById('bg-night').style.display = 'block';
+  if (path === 'healing') {
+    document.getElementById('bg-day').style.display = 'block';
+    icon.innerText = '🌱';
+    text.innerText = 'Taking time to heal is not weakness. It’s choosing yourself, slowly and kindly.';
+  }
 
-  goTo('netflix');
+  if (path === 'bravery') {
+    document.getElementById('bg-sunset').style.display = 'block';
+    icon.innerText = '🔥';
+    text.innerText = 'Bravery doesn’t mean fearless. It means moving forward, even when you’re scared.';
+  }
+
+  if (path === 'peace') {
+    document.getElementById('bg-night').style.display = 'block';
+    icon.innerText = '🌊';
+    text.innerText = 'Peace is choosing calm. Even when the world feels too loud.';
+  }
+
+  goTo('path-detail');
 }
 
 /* MUSIC */
 const music = document.getElementById('bgm');
-const toggle = document.querySelector('.music-toggle');
 let playing = false;
-
 function toggleMusic() {
   playing ? music.pause() : music.play();
-  toggle.innerText = playing ? '🎵 MUSIC: OFF' : '🎵 MUSIC: ON';
   playing = !playing;
 }
-
-/* CLOUDS */
-function spawnCloud() {
-  const c = document.createElement('img');
-  c.src = 'images/cloud.png';
-  c.className = 'cloud';
-  c.style.top = Math.random() * 40 + '%';
-  c.style.animationDuration = (20 + Math.random() * 20) + 's';
-  document.body.appendChild(c);
-  setTimeout(() => c.remove(), 40000);
-}
-setInterval(spawnCloud, 6000);
-
-/* STARS FOR CLOSING */
-function spawnStar() {
-  const s = document.createElement('img');
-  s.src = 'images/star.png';
-  s.className = 'star';
-  s.style.left = Math.random() * 100 + 'vw';
-  s.style.top = Math.random() * 50 + 'vh';
-  document.body.appendChild(s);
-}
-for (let i = 0; i < 12; i++) spawnStar();
 </script>
 
 </body>
