@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>New Year: Chapter 2025</title>
+  <title>New Year – A New Chapter</title>
 
   <!-- Pixel Font -->
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -48,15 +48,26 @@
     h1 {
       font-size: 0.8rem;
       line-height: 1.7;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       color: #fde68a;
     }
 
     p {
       font-size: 0.6rem;
       line-height: 2;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       color: #fef3c7;
+    }
+
+    ul {
+      list-style: none;
+      margin-top: 16px;
+    }
+
+    li {
+      font-size: 0.6rem;
+      margin-bottom: 10px;
+      color: #e0f2fe;
     }
 
     .btn {
@@ -105,7 +116,7 @@
     .credits {
       font-size: 0.5rem;
       color: #fde68a;
-      margin-top: 28px;
+      margin-top: 24px;
     }
 
     .music-toggle {
@@ -122,20 +133,31 @@
 
     .icon {
       font-size: 1rem;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       display: block;
+    }
+
+    .blink {
+      margin-top: 18px;
+      font-size: 0.5rem;
+      opacity: 0.8;
+      animation: blink 1s steps(2) infinite;
     }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
   </style>
 </head>
 
 <body>
 
-  <!-- Music -->
+  <!-- MUSIC -->
   <audio id="bgm" loop>
     <source src="music.mp3" type="audio/mpeg">
   </audio>
@@ -172,8 +194,7 @@
       </p>
 
       <p>
-        Just want to say,<br>
-        you don’t need to explain anything here.
+        You don’t need to explain anything here.
       </p>
 
       <p>
@@ -193,15 +214,18 @@
     <div class="screen" id="screen-paths">
       <span class="icon">🧭</span>
       <h1>Choose Your Path</h1>
+
       <div class="paths">
         <div class="path" onclick="goTo('screen-healing')">
           <h2>🌱 Healing</h2>
           <span>I need time. I need space. I need kindness.</span>
         </div>
+
         <div class="path" onclick="goTo('screen-bravery')">
           <h2>🔥 Bravery</h2>
           <span>I’m scared, but I don’t want to stop living.</span>
         </div>
+
         <div class="path" onclick="goTo('screen-peace')">
           <h2>🌊 Peace</h2>
           <span>I just want things to feel quieter.</span>
@@ -211,12 +235,11 @@
 
     <!-- HEALING -->
     <div class="screen" id="screen-healing">
-      <span class="icon">❤️</span>
+      <span class="icon">🍄</span>
       <p>It’s okay if you’re not okay yet.</p>
       <p>Healing doesn’t mean forgetting.</p>
       <p>It means letting yourself breathe again.</p>
-      <p>You don’t owe the world your strength.</p>
-      <button class="btn" onclick="goTo('screen-end')">➡ CONTINUE</button>
+      <button class="btn" onclick="goTo('screen-netflix')">➡ SIDE QUEST</button>
     </div>
 
     <!-- BRAVERY -->
@@ -224,27 +247,80 @@
       <span class="icon">🔥</span>
       <p>Choosing to move forward after being hurt is brave.</p>
       <p>Even showing up is brave.</p>
-      <p>You’re allowed to want more. Even now.</p>
-      <button class="btn" onclick="goTo('screen-end')">➡ CONTINUE</button>
+      <p>You’re allowed to want more.</p>
+      <button class="btn" onclick="goTo('screen-netflix')">➡ SIDE QUEST</button>
     </div>
 
     <!-- PEACE -->
     <div class="screen" id="screen-peace">
-      <span class="icon">🏳️</span>
+      <span class="icon">🌊</span>
       <p>Wanting peace is not giving up.</p>
       <p>It’s choosing yourself.</p>
-      <p>Less noise. Less weight.</p>
       <p>More room to breathe.</p>
-      <button class="btn" onclick="goTo('screen-end')">➡ CONTINUE</button>
+      <button class="btn" onclick="goTo('screen-netflix')">➡ SIDE QUEST</button>
     </div>
 
-    <!-- END -->
+    <!-- NETFLIX SIDE QUEST -->
+    <div class="screen" id="screen-netflix">
+      <span class="icon">📺</span>
+      <h1>Side Quest Unlocked!</h1>
+
+      <p>Bang, bingung bang liburan ngapain aja?</p>
+      <p>
+        Here are some Netflix recommendations<br>
+        (FROM YOUR RECOMMENDATION GURU)<br>
+        #IZINNNN
+      </p>
+
+      <ul>
+        <li>⭐ DARK</li>
+        <li>⭐ The Society</li>
+        <li>⭐ The Night Agent</li>
+        <li>⭐ Spy x Family (pliss ini lucu dan bagus)</li>
+        <li>⭐ Bon Appétit, Your Majesty</li>
+        <li>⭐ Weak Hero</li>
+      </ul>
+
+      <button class="btn" onclick="goTo('screen-end')">🏁 FINISH</button>
+    </div>
+
+    <!-- FINAL CLOSING -->
     <div class="screen" id="screen-end">
-      <span class="icon">🏁</span>
-      <h1>End of Chapter One</h1>
-      <p>Next chapter unlocks naturally.</p>
-      <p>No rush.</p>
-      <div class="credits">From someone who cares about you.</div>
+      <span class="icon">⭐ 🏁</span>
+
+      <h1>Final Message</h1>
+
+      <p>Lastly, if you ever need to hear this.</p>
+
+      <p>
+        Gapapa kok,<br>
+        kalau satu-satunya hal yang kamu lakuin tahun ini<br>
+        adalah bertahan.
+      </p>
+
+      <p>
+        Terlalu banyak tangis yang disembunyikan.<br>
+        Terlalu banyak hal berat<br>
+        yang orang lain nggak lihat.
+      </p>
+
+      <p>
+        Even though I barely know you personally,<br>
+        please know this.
+      </p>
+
+      <p>I see you.</p>
+
+      <p>
+        And I’m proud of you<br>
+        for surviving this far.
+      </p>
+
+      <div class="credits">
+        ⏳ Countdown to D-31 to your 20s
+      </div>
+
+      <p class="blink">Press any key to continue…</p>
     </div>
 
   </div>
